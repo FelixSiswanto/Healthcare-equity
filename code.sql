@@ -1,7 +1,7 @@
 
 																
-																					--1. Geographical coverage of healthcare
-																				--A.Low coverage ratio per area
+										--1. Geographical coverage of healthcare
+										--A.Low coverage ratio per area
 
 WITH Geocoverage AS (SELECT 
 	Id,
@@ -28,7 +28,7 @@ FROM Geocoverage
 GROUP BY City,County
 HAVING ROUND(CAST(COUNT(CASE WHEN Coverage_ratio < 0.5 THEN Id ELSE NULL END) AS FLOAT) / COUNT(Id),2) > 0.5;
 
-                                                                                       --B. Underinsured ratio 
+                                                                           --B. Underinsured ratio 
 																					   
  --Based on https://www.who.int/data/gho/data/indicators/indicator-details/GHO/population-with-household-expenditures-on-health-greater-than-10-of-total-household-expenditure-or-income-(sdg-3-8-2)-(-) 10% is worrying
 
@@ -54,7 +54,7 @@ ROUND(CAST(COUNT(CASE WHEN Income_expenditure_status = 'Difficult' OR Income_exp
 FROM Catastrophic_spending
 GROUP BY City
 
-																			--C. High patient load area 
+										--C. High patient load area 
 
 SELECT 
     City,
@@ -67,7 +67,7 @@ JOIN Patients P ON E.Patient = P.Id
 GROUP BY City,County
 HAVING COUNT(DISTINCT Provider) < 10	
 
-																					--2.  Health disparity index accross race
+						 			--2.  Health disparity index accross race
 
 
 WITH normalized_data AS (
@@ -87,7 +87,8 @@ SELECT
 FROM normalized_data
 GROUP BY RACE
 
-																			-- Extra 
+												-- Extra 
+	
 --- Compensating providers (healthcare proffesionals) by finding who are the most commonly cited providers. 
 
 ---  who are the most common providers for these most frequently diagnosed diseases?
